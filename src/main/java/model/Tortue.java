@@ -3,14 +3,16 @@ package model;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 
 /**
  * Created by Quentin on 12/04/2017.
  */
-public class Tortue {
+public class Tortue extends Observable {
 
     protected static final int rp=10, rb=5; // Taille de la pointe et de la base de la fleche
     protected static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
+    private static int counter;
 
     protected ArrayList<Segment> listSegments; // Trace de la tortue
 
@@ -18,6 +20,7 @@ public class Tortue {
     protected int dir;
     protected boolean crayon;
     protected int coul;
+    private int numTortue;
 
     public void setColor(int n) {coul = n;}
     public int getColor() {return coul;}
@@ -25,6 +28,8 @@ public class Tortue {
     public Tortue() {
         listSegments = new ArrayList<Segment>();
         reset();
+        numTortue = counter;
+        counter++;
     }
 
     public void reset() {
@@ -35,6 +40,8 @@ public class Tortue {
         crayon = true;
         listSegments.clear();
     }
+
+    public int getTortueNum(){return this.numTortue;}
 
     public void setPosition(int newX, int newY) {
         x = newX;
@@ -164,5 +171,10 @@ public class Tortue {
             droite(360/nbCotes);
             tailleSegment = tailleSegment+1;
         }
+    }
+
+    public void change(){
+        this.setChanged();
+        this.notifyObservers();
     }
 }

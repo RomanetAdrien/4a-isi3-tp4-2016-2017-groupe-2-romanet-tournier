@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import controller.TortueMove;
 import model.Tortue;
 
 import javax.swing.*;
@@ -17,8 +18,8 @@ public class VueTortue extends JFrame implements ActionListener{
     public static final Dimension VGAP = new Dimension(1,5);
     public static final Dimension HGAP = new Dimension(5,1);
     private static final int NOACTION = -1;
-    private static final int HAUTEUR = 600;
-    private static final int LARGEUR = 400;
+    public static final int HAUTEUR = 600;
+    public static final int LARGEUR = 400;
 
     private JTextField inputValue;
     private static Controller controller;
@@ -41,6 +42,7 @@ public class VueTortue extends JFrame implements ActionListener{
     public VueTortue() {
         super("un logo tout simple");
         vueDessin = new VueDessin();
+        controller.setObserver(vueDessin);
         logoInit();
 
         addWindowListener(new WindowAdapter() {
@@ -72,6 +74,7 @@ public class VueTortue extends JFrame implements ActionListener{
         addButton(toolBar, "Gauche", "Gauche 45", null);
         addButton(toolBar, "Lever", "Lever Crayon", null);
         addButton(toolBar, "Baisser", "Baisser Crayon", null);
+        addButton(toolBar, "Nouvelle", "Nouvelle Tortue", null);
 
         String[] colorStrings = {"noir", "bleu", "cyan","gris fonce","rouge",
                 "vert", "gris clair", "magenta", "orange",
@@ -107,6 +110,7 @@ public class VueTortue extends JFrame implements ActionListener{
         addMenuItem(menuCommandes, "Gauche", "Gauche", NOACTION);
         addMenuItem(menuCommandes, "Lever Crayon", "Lever", NOACTION);
         addMenuItem(menuCommandes, "Baisser Crayon", "Baisser", NOACTION);
+        addMenuItem(menuCommandes, "Nouvelle Tortue", "Nouvelle", NOACTION);
 
         JMenu menuHelp=new JMenu("Aide"); // on installe le premier menu
         menubar.add(menuHelp);
@@ -128,15 +132,18 @@ public class VueTortue extends JFrame implements ActionListener{
 
         getContentPane().add(panel2,"South");
 
+
         vueDessin.setBackground(Color.white);
         vueDessin.setSize(new Dimension(HAUTEUR,LARGEUR));
         vueDessin.setPreferredSize(new Dimension(HAUTEUR,LARGEUR));
+
 
         getContentPane().add(vueDessin,"Center");
 
         // Deplacement de la tortue au centre de la feuille
         controller.init(HAUTEUR/2, LARGEUR/2);
-
+        TortueMove tm = new TortueMove(controller);
+        new Thread(tm).start();
         pack();
         setVisible(true);
     }

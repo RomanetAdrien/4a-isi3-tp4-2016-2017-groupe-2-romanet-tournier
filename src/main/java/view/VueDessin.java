@@ -1,6 +1,5 @@
 package view;
 
-import model.FeuilleDessin;
 import model.Tortue;
 
 import javax.swing.*;
@@ -35,17 +34,23 @@ public class VueDessin extends JPanel implements Observer {
     }
 
     public void showTurtles(Graphics g) {
-        //TO CHANGE
         for(Iterator it = listeTortue.iterator(); it.hasNext();) {
             Tortue t = (Tortue) it.next();
+            System.out.println(t.getTortueNum());
             t.drawTurtle(g);
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o instanceof FeuilleDessin){
-            listeTortue = ((FeuilleDessin) o).getTortues();
+        if(o instanceof Tortue){
+            Tortue tortue = listeTortue.get(((Tortue) o).getTortueNum());
+            tortue = (Tortue) o;
         }
+        this.repaint();
+    }
+
+    public void addTortue(Tortue o) {
+        listeTortue.add(o);
     }
 }
