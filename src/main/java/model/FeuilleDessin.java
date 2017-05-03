@@ -1,9 +1,11 @@
 package model;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
+import java.util.Random;
 
 /**
  * Created by Quentin on 12/04/2017.
@@ -51,4 +53,18 @@ public class FeuilleDessin  {
         }
         return seen;
     }
+
+    public void deplacement(Tortue tortuecourante, ArrayList<Tortue> tortuesvues){
+        Random rand = new Random();
+        if(tortuesvues.isEmpty()){
+            tortuecourante.droite(rand.nextInt(360));
+            tortuecourante.avancer(rand.nextInt(100));
+            return;
+        }
+        Tortue cible = tortuesvues.get(rand.nextInt(tortuesvues.size()-1));
+
+
+
+    }
+
 }

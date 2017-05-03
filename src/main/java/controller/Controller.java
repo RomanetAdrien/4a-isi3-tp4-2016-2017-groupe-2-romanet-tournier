@@ -86,6 +86,8 @@ public class Controller{
         tortueCourante.change();
     }
 
+
+
     private void newTortue(int hauteur, int largeur) {
         tortueCourante = new Tortue();
         this.init(hauteur/2,largeur/2);
