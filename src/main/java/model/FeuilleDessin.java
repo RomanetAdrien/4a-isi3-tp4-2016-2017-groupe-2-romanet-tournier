@@ -11,10 +11,24 @@ import java.util.Observable;
 public class FeuilleDessin  {
     private ArrayList<Tortue> tortues; // la liste des tortues enregistrees
     private int tortueCourante;
+    private ArrayList<Obstacle> listeObstacle;
 
     public FeuilleDessin() {
         tortues = new ArrayList<Tortue>();
         tortueCourante = 0;
+        listeObstacle = new ArrayList<>();
+        ObstacleBord bord = new ObstacleBord();
+        ObstacleCercle cercle = new ObstacleCercle(50, new Point(200, 192));
+        listeObstacle.add(bord);
+        listeObstacle.add(cercle);
+        for (int i =0; i< 5; i++){
+            listeObstacle.add(new ObstacleCercle());
+            listeObstacle.add(new ObstacleRectangle());
+        }
+    }
+
+    public ArrayList<Obstacle> getListeObstacle() {
+        return listeObstacle;
     }
 
     public void addTortue(Tortue o) {
@@ -50,5 +64,14 @@ public class FeuilleDessin  {
             }
         }
         return seen;
+    }
+
+    public boolean isColliding(Point pointStart, Point pointEnd){
+        for (Obstacle o:listeObstacle) {
+            if(o.isColliding(pointStart, pointEnd)){
+                return true;
+            }
+        }
+        return false;
     }
 }

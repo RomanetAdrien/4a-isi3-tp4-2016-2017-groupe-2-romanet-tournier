@@ -40,7 +40,7 @@ public class VueTortue extends JFrame implements ActionListener{
     }
 
     public VueTortue() {
-        super("un logo tout simple");
+        super("J'adore les tortues");
         vueDessin = new VueDessin();
         controller.setObserver(vueDessin);
         logoInit();
@@ -142,6 +142,7 @@ public class VueTortue extends JFrame implements ActionListener{
 
         // Deplacement de la tortue au centre de la feuille
         controller.init(HAUTEUR/2, LARGEUR/2);
+        controller.initObstacles();
         TortueMove tm = new TortueMove(controller);
         new Thread(tm).start();
         pack();

@@ -11,8 +11,9 @@ import java.util.Observable;
 public class Tortue extends Observable {
 
     protected static final int rp=10, rb=5; // Taille de la pointe et de la base de la fleche
-    protected static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
+    public static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
     private static int counter;
+    public static final int personnalSpace = 10;
 
     protected ArrayList<Segment> listSegments; // Trace de la tortue
 
@@ -21,6 +22,14 @@ public class Tortue extends Observable {
     protected boolean crayon;
     protected int coul;
     private int numTortue;
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     public void setColor(int n) {coul = n;}
     public int getColor() {return coul;}
@@ -53,10 +62,10 @@ public class Tortue extends Observable {
             return;
 
         // Dessine les segments
-        for(Iterator it = listSegments.iterator(); it.hasNext();) {
+       /* for(Iterator it = listSegments.iterator(); it.hasNext();) {
             Segment seg = (Segment) it.next();
             seg.drawSegment(graph);
-        }
+        }*/
 
         //Calcule les 3 coins du triangle a partir de
         // la position de la tortue p
@@ -134,6 +143,10 @@ public class Tortue extends Observable {
         dir = (dir - ang) % 360;
     }
 
+    public void setAngle(int ang) {
+        dir = ang % 360;
+    }
+
     public void baisserCrayon() {
         crayon = true;
     }
@@ -176,5 +189,14 @@ public class Tortue extends Observable {
     public void change(){
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public Segment getLastSegment(){
+        if(listSegments.size()-1>=0){
+            return listSegments.get(listSegments.size()-1);
+        }
+        else{
+            return null;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package view;
 
+import model.Obstacle;
 import model.Tortue;
 
 import javax.swing.*;
@@ -15,9 +16,12 @@ import java.util.Observer;
 public class VueDessin extends JPanel implements Observer {
 
     ArrayList<Tortue> listeTortue;
+    ArrayList<Obstacle> listeObstacle;
 
     public VueDessin(){
+
         listeTortue = new ArrayList<Tortue>();
+        listeObstacle = new ArrayList<Obstacle>();
     }
 
     public void paintComponent(Graphics g) {
@@ -31,13 +35,20 @@ public class VueDessin extends JPanel implements Observer {
         g.setColor(c);
 
         showTurtles(g);
+        showObstacles(g);
     }
 
     public void showTurtles(Graphics g) {
         for(Iterator it = listeTortue.iterator(); it.hasNext();) {
             Tortue t = (Tortue) it.next();
-            System.out.println(t.getTortueNum());
             t.drawTurtle(g);
+        }
+    }
+
+    public void showObstacles(Graphics g) {
+        for(Iterator it = listeObstacle.iterator(); it.hasNext();) {
+             Obstacle o = (Obstacle) it.next();
+            o.drawObstacle(g);
         }
     }
 
@@ -52,5 +63,8 @@ public class VueDessin extends JPanel implements Observer {
 
     public void addTortue(Tortue o) {
         listeTortue.add(o);
+    }
+    public void addObstacle(Obstacle o) {
+        listeObstacle.add(o);
     }
 }
