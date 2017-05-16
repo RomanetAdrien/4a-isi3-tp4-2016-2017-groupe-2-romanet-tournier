@@ -1,11 +1,9 @@
 package model;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
-import java.util.Random;
 
 /**
  * Created by Quentin on 12/04/2017.
@@ -13,10 +11,24 @@ import java.util.Random;
 public class FeuilleDessin  {
     private ArrayList<Tortue> tortues; // la liste des tortues enregistrees
     private int tortueCourante;
+    private ArrayList<Obstacle> listeObstacle;
 
     public FeuilleDessin() {
         tortues = new ArrayList<Tortue>();
         tortueCourante = 0;
+        listeObstacle = new ArrayList<>();
+        ObstacleBord bord = new ObstacleBord();
+        ObstacleCercle cercle = new ObstacleCercle(50, new Point(200, 192));
+        listeObstacle.add(bord);
+        listeObstacle.add(cercle);
+        for (int i =0; i< 5; i++){
+            listeObstacle.add(new ObstacleCercle());
+            listeObstacle.add(new ObstacleRectangle());
+        }
+    }
+
+    public ArrayList<Obstacle> getListeObstacle() {
+        return listeObstacle;
     }
 
     public void addTortue(Tortue o) {
@@ -54,17 +66,12 @@ public class FeuilleDessin  {
         return seen;
     }
 
-    public void deplacement(Tortue tortuecourante, ArrayList<Tortue> tortuesvues){
-        Random rand = new Random();
-        if(tortuesvues.isEmpty()){
-            tortuecourante.droite(rand.nextInt(360));
-            tortuecourante.avancer(rand.nextInt(100));
-            return;
+    public boolean isColliding(Point pointStart, Point pointEnd){
+        for (Obstacle o:listeObstacle) {
+            if(o.isColliding(pointStart, pointEnd)){
+                return true;
+            }
         }
-        Tortue cible = tortuesvues.get(rand.nextInt(tortuesvues.size()-1));
-
-
-
+        return false;
     }
-
 }
