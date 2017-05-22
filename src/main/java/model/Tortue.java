@@ -74,15 +74,15 @@ public class Tortue extends Observable {
 
         //Calcule des deux bases
         //Angle de la droite
-        double theta=ratioDegRad*(-dir);
+        double theta = ratioDegRad*(-dir);
         //Demi angle au sommet du triangle
-        double alpha=Math.atan( (float)rb / (float)rp );
+        double alpha = Math.atan( (float)rb / (float)rp );
         //Rayon de la fleche
-        double r=Math.sqrt( rp*rp + rb*rb );
+        double r = Math.sqrt( rp*rp + rb*rb );
         //Sens de la fleche
 
         //Pointe
-        Point p2=new Point((int) Math.round(p.x+r*Math.cos(theta)),
+        Point p2 = new Point((int) Math.round(p.x+r*Math.cos(theta)),
                 (int) Math.round(p.y-r*Math.sin(theta)));
         arrow.addPoint(p2.x,p2.y);
         arrow.addPoint((int) Math.round( p2.x-r*Math.cos(theta + alpha) ),

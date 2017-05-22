@@ -61,22 +61,31 @@ public class FeuilleDessin  {
 
     }
 
-    public ArrayList<Obstacle> getListeObstacle() {
-        return listeObstacle;
+    public void setListeObstacle6(){
         listeObstacle = new ArrayList<>();
         ObstacleBord bord = new ObstacleBord();
         ObstacleCercle cercle = new ObstacleCercle(50, new Point(200, 192));
         listeObstacle.add(bord);
-        listeObstacle.add(cercle);
-        for (int i =0; i< 5; i++){
-            listeObstacle.add(new ObstacleCercle());
-            listeObstacle.add(new ObstacleRectangle());
-        }
+
+        Point pointHG = new Point(25,25);
+        Point pointMG = new Point(15,200);
+        Point pointBG = new Point(25,400);
+        Point pointHD = new Point(350,25);
+        Point pointMD = new Point(340,200);
+        Point pointBD = new Point(350,400);
+        listeObstacle.add(new ObstacleCercle(40,pointHG));
+        listeObstacle.add(new ObstacleCercle(40,pointBG));
+        listeObstacle.add(new ObstacleCercle(40,pointHD));
+        listeObstacle.add(new ObstacleCercle(40,pointBD));
+
+        listeObstacle.add(new ObstacleRectangle(pointMG,40,40));
+        listeObstacle.add(new ObstacleRectangle(pointMD,40,40));
     }
 
     public ArrayList<Obstacle> getListeObstacle() {
         return listeObstacle;
     }
+
 
     public void addTortue(Tortue o) {
         tortues.add(o);

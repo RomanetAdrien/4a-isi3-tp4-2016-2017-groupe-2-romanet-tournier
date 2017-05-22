@@ -7,6 +7,8 @@ import view.VueTortue;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -33,35 +35,55 @@ public class TortueMove implements Runnable {
 //                e.printStackTrace();
 //            }
 
-
+            ArrayList<Integer> listLength = new ArrayList<>();
+            ArrayList<ActionEvent> moves = new ArrayList();
             for (int i=0; i<nbTortue;i++){
-                try {
-                    TimeUnit.MILLISECONDS.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
                 controller.setTortueCourante(i);
 
                 Segment deplacement = controller.moveTurtle();
                 if(deplacement == null){
                     Random rand = new Random();
-                    controller.setSegmentValue(rand.nextInt(360));
+                    int num = rand.nextInt(360);
+                    listLength.add(num);
+                    controller.setSegmentValue(num);
                     ActionEvent action = new ActionEvent(this,0,"Droite");
-                    controller.doAction(action);
+                    moves.add(action);
 
-                    controller.setSegmentValue(rand.nextInt(5));
+                    int num2 = rand.nextInt(5);
+                    listLength.add(num2);
+                    controller.setSegmentValue(num2);
                     ActionEvent action2 = new ActionEvent(this,0,"Avancer");
-                    controller.doAction(action2);
+                    moves.add(action2);
                 }
                 else{
-                    controller.setSegmentValue((int) (Math.atan2(deplacement.getDeplacementY(),deplacement.getDeplacementX())/Tortue.ratioDegRad));
+                    int num = (int)(Math.atan2(deplacement.getDeplacementY(),deplacement.getDeplacementX())/Tortue.ratioDegRad);
+                    listLength.add(num);
+                    controller.setSegmentValue(num);
                     ActionEvent action = new ActionEvent(this,0,"Angle");
-                    controller.doAction(action);
+                    moves.add(action);
 
-                    controller.setSegmentValue(deplacement.getNorme());
+                    int num2 = deplacement.getNorme();
+                    listLength.add(num2);
+                    controller.setSegmentValue(num2);
+
                     ActionEvent action2 = new ActionEvent(this,0,"Avancer");
-                    controller.doAction(action2);
+                    moves.add(action2);
                 }
+
+            }
+            try {
+                TimeUnit.MILLISECONDS.sleep(150);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            for(int i=0 ; i<nbTortue; i++){
+                controller.setSegmentValue(listLength.get(i*2));
+                controller.setTortueCourante(i);
+                controller.doAction(moves.get(i*2));
+                controller.setSegmentValue(listLength.get(i*2+1));
+                controller.doAction(moves.get(i*2+1));
+            }
 
                 /*
                 Random rand = new Random();
@@ -72,7 +94,6 @@ public class TortueMove implements Runnable {
                 controller.setSegmentValue(rand.nextInt(100));
                 ActionEvent action2 = new ActionEvent(this,0,"Avancer");
                 controller.doAction(action2);*/
-            }
         }
     }
 }

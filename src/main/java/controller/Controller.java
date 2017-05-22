@@ -105,8 +105,6 @@ public class Controller{
 
     public void setTortueCourante(int number){
         tortueCourante = model.getTortueI(number);
-        System.out.print(tortueCourante.getX() + " ");
-        System.out.println(tortueCourante.getY());
     }
 
     public void setCouranteColor(int n) {
@@ -122,10 +120,10 @@ public class Controller{
         if(tortuesClose.isEmpty()){
             Random random = new Random();
             Point depart = new Point (tortueCourante.getX(), tortueCourante.getY());
-            Point destination = new Point((int)Math.round(tortueCourante.getX()+ random.nextInt(5)),(int)Math.round(tortueCourante.getY()+ random.nextInt(5)));
+            Point destination = new Point((int)Math.round(tortueCourante.getX()+ random.nextInt(2)),(int)Math.round(tortueCourante.getY()+ random.nextInt(2)));
             Segment segment = new Segment(depart.x, depart.y, destination.x, destination.y);
             turnMovement(depart, destination, segment);
-            return null;
+            return segment;
         }
         ArrayList<Segment> segments = new ArrayList<>();
         double distance = 0;
@@ -144,21 +142,21 @@ public class Controller{
         else{
             distanceMoyenne = distance/compteur;
         }
-        double xStartMoyen=0;
-        double yStartMoyen=0;
-        double xEndMoyen=0;
-        double yEndMoyen=0;
+        double xStartMoyen = 0;
+        double yStartMoyen = 0;
+        double xEndMoyen = 0;
+        double yEndMoyen = 0;
         int n = segments.size();
         for (Segment s: segments){
-            xStartMoyen+=s.ptStart.getX();
-            yStartMoyen+=s.ptStart.getY();
-            xEndMoyen+=s.ptEnd.getX();
-            yEndMoyen+=s.ptEnd.getY();
+            xStartMoyen +=s .ptStart.getX();
+            yStartMoyen += s.ptStart.getY();
+            xEndMoyen += s.ptEnd.getX();
+            yEndMoyen += s.ptEnd.getY();
         }
-        xStartMoyen=xStartMoyen/n;
-        yStartMoyen=yStartMoyen/n;
-        xEndMoyen=xEndMoyen/n;
-        yEndMoyen=yEndMoyen/n;
+        xStartMoyen = xStartMoyen/n;
+        yStartMoyen = yStartMoyen/n;
+        xEndMoyen = xEndMoyen/n;
+        yEndMoyen = yEndMoyen/n;
 
         double diffXmoyen = xEndMoyen-xStartMoyen;
         double diffYmoyen = yEndMoyen-yStartMoyen;
@@ -187,12 +185,14 @@ public class Controller{
     private void turnMovement(Point depart, Point destination,Segment moveOrigin) {
         Random random = new Random();
         boolean leftOrRight = random.nextBoolean();
-        while(model.isColliding(depart,destination)){
+        int iterations = 0;
+        while(model.isColliding(depart,destination) && iterations<36){
             int theta = leftOrRight ? 10 : -10;
             int destinationX = (int) (Math.cos(theta)*(destination.getX()-depart.getX()) - Math.sin(theta)*(destination.getY()-depart.getY()) + depart.getX());
             int destinationY = (int) (Math.sin(theta)*(destination.getX()-depart.getX()) + Math.cos(theta)*(destination.getY()-depart.getY()) + depart.getY());
             destination.setLocation(destinationX, destinationY);
             moveOrigin.setPtEnd(destination);
+            iterations ++;
         }
     }
 
