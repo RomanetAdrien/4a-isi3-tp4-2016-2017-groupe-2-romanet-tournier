@@ -38,6 +38,9 @@ public class Controller{
         tortueCourante.addObserver(observer);
         observer.addTortue(tortueCourante);
         model.addTortue(tortueCourante);
+        model.creerLabyrinthe(hauteur, largeur);
+        //model.dessinerMickey(hauteur,largeur);
+        //model.ajouterObstacles();
     }
 
     public void initObstacles(){
