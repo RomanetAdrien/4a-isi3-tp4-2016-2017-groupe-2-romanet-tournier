@@ -43,7 +43,7 @@ public class FeuilleDessin  {
         listeObstacle.add(new ObstacleRectangle(new Point(0,0),2*largeur, (int) (hauteur*0.20)));
         listeObstacle.add(new ObstacleRectangle(new Point(0,0), (int) (largeur*0.30), hauteur*2));
         listeObstacle.add(new ObstacleRectangle(new Point(2*largeur,0), (int) (largeur*0.30), hauteur*2));
-        listeObstacle.add(new ObstacleRectangle(new Point(0,2*hauteur), largeur*2, (int) (hauteur*0.20)));
+        listeObstacle.add(new ObstacleRectangle(new Point(0,2*hauteur), (int) (largeur*2.3), (int) (hauteur*0.20)));
         listeObstacle.add(new ObstacleRectangle(new Point(0,hauteur), largeur, (int) (hauteur*0.20)));
         listeObstacle.add(new ObstacleRectangle(new Point((int) (largeur*1.25),hauteur), largeur, (int) (hauteur*0.20)));
         listeObstacle.add(new ObstacleRectangle(new Point((int) (largeur*1.25), (int) (hauteur*0.75)), (int) (largeur*0.25), (int) (hauteur*0.25)));

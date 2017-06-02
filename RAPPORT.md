@@ -31,19 +31,23 @@ Des éléments de la vue sont imbriqués avec des éléments du contrôleur
 *Rien à rédiger*
 
 ## Question 5
-*Expliquer le code ajouté et représenter le patron de conception*
+On a chosit de faire l'ensemble de tortues qui se deplacent aléatoirement.
 
-## Question 6
-*Rien à rédiger*
+On créé un ensemble de tortues dans la partie modèle et que l'on controle depuis la partie contrôleur dans le fichier TortueMove
+où l'on peut trouver les fonctions qui décident de leurs mouvements.
 
-## Question 7
-*Rien à rédiger*
 
-## Question 8
-*Expliquer l'intérêt du mock*
 
-## Question 9
-*Montrer les résultats de vos rapports d'analyse*
+## Explications et partie bonus :
 
-## Question 10
-*Rien à rédiger*
+Pour le comportement de flocking des tortues, nos tortues se déplacent à la vitesse moyenne de l'ensemble des tortues dans son champ de vision
+(c'est à dire à moins d'une certaine distance) et part dans la direction moyenne des autres tortues Tout en évitant de rentrer dans 
+une autre tortue(c'est à dire refusera une position si une tortue s'y trouve déjà).
+ Elles ont également l'interdiction de sortir de la carte
+mise en place.
+
+Après avoir mis en place ce comportement nous avons décidé d'ajouter des obstacles dans notre application que les tortues devront éviter.
+Ces obstacles, soit des rectangles ou des carrés peuvent être placer de différentes façon :
+soit un nombre déterminé d'obstacles choisis et placés de manière aléatoire soit l'utilisateur peut préférer une des dispositions
+existantes que nous avons mis en place (comme le labyrinthe ou le mickey).
+
